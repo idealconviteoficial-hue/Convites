@@ -1,0 +1,1852 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title id="page-title">Convite Digital Premium</title>
+  <meta name="description" content="Você está convidado para uma celebração especial."/>
+  <meta property="og:title" content="Convite Digital Premium"/>
+  <meta property="og:description" content="Você está convidado para uma celebração especial."/>
+  <meta property="og:url" content="https://www.onspace.ai"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="OnSpace.AI"/>
+  <meta property="og:image" content="https://cdn-ai.onspace.ai/onspace/project/screenshot/online/pre-site/9b0ss8.jpg"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Convite Digital Premium"/>
+  <meta name="twitter:description" content="Você está convidado para uma celebração especial."/>
+  <meta name="twitter:image" content="https://cdn-ai.onspace.ai/onspace/project/screenshot/online/pre-site/9b0ss8.jpg"/>
+  <meta name="twitter:url" content="https://www.onspace.ai"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;family=Jost:wght@200;300;400;500&amp;family=Pinyon+Script&amp;family=Playfair+Display:ital,wght@0,300;0,400;1,300&amp;family=Lato:wght@100;300;400&amp;family=Great+Vibes&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif:  ["var(--font-serif)", "Georgia", "serif"],
+            sans:   ["var(--font-sans)", "sans-serif"],
+            script: ["var(--font-script)", "cursive"],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ============================================================ ROOT & RESET */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --color-accent:    #C9A96E;
+      --color-accent-lt: #E8D5B0;
+      --color-accent-sf: #F5ECD9;
+      --color-bg:        #FAF8F4;
+      --color-bg-warm:   #F2EDE6;
+      --color-bg-deep:   #E9E2D8;
+      --color-dark:      #2D2926;
+      --color-mid:       #5A534D;
+      --color-muted:     #8A8279;
+      --font-serif:  'Cormorant Garamond';
+      --font-sans:   'Jost';
+      --font-script: 'Pinyon Script';
+    }
+    body {
+      background-color: var(--color-bg);
+      font-family: var(--font-sans), sans-serif;
+      color: var(--color-dark);
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--color-bg); }
+    ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 4px; }
+
+    /* ============================================================ LOADING */
+    #loading-screen {
+      position: fixed; inset: 0; background: var(--color-bg);
+      z-index: 9999; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 20px;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    #loading-screen.hidden { opacity: 0; visibility: hidden; }
+    .loading-ring {
+      width: 48px; height: 48px;
+      border: 1.5px solid var(--color-bg-deep);
+      border-top-color: var(--color-accent);
+      border-radius: 50%; animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ============================================================ COVER */
+    #cover-screen {
+      position: relative; width: 100%; height: 100dvh;
+      min-height: 100vh; overflow: hidden; background: #0d0b09;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #cover-video-blur {
+      position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+    }
+    #cover-video-blur video, #cover-video-blur img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: blur(28px) brightness(0.45) saturate(1.2); transform: scale(1.15);
+    }
+    #cover-video-main {
+      position: relative; z-index: 1; height: 100%; width: auto;
+      max-width: 100%; display: flex; align-items: center; justify-content: center;
+    }
+    #cover-video-main video, #cover-video-main img {
+      height: 100%; width: auto; max-width: 100vw; object-fit: contain; display: block;
+    }
+    @media (max-width: 640px) {
+      #cover-video-main video, #cover-video-main img {
+        width: 100%; height: 100%; object-fit: cover;
+      }
+    }
+    #cover-embed-wrap { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+    #cover-embed-wrap iframe { width: 100%; height: 100%; border: none; }
+    #cover-overlay {
+      position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(180deg,rgba(0,0,0,0.08) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,0.55) 100%);
+      pointer-events: none;
+    }
+    #cover-btn-area {
+      position: absolute; inset: 0; z-index: 3; display: flex;
+      flex-direction: column; align-items: center; justify-content: flex-end;
+      padding-bottom: clamp(44px,8vh,88px); cursor: pointer;
+    }
+    .btn-cover-open {
+      background: transparent; border: 1px solid rgba(255,255,255,0.55);
+      color: #fff; font-family: var(--font-sans),sans-serif; font-weight: 300;
+      letter-spacing: 0.32em; font-size: 0.72rem; padding: 15px 48px;
+      text-transform: uppercase; cursor: pointer;
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      transition: all 0.45s ease; position: relative; overflow: hidden;
+    }
+    .btn-cover-open:hover { border-color: rgba(255,255,255,0.9); letter-spacing: 0.42em; }
+    .cover-eyebrow {
+      font-family: var(--font-sans),sans-serif; font-weight: 200;
+      letter-spacing: 0.3em; font-size: 0.68rem; text-transform: uppercase;
+      color: rgba(255,255,255,0.55); margin-bottom: 20px; text-align: center;
+    }
+
+    /* ============================================================ HERO */
+    #hero {
+      position: relative; width: 100%; height: 100dvh; min-height: 600px;
+      overflow: hidden; background: #1a1612;
+    }
+    #hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg,rgba(0,0,0,0.18) 0%,rgba(0,0,0,0.05) 40%,rgba(0,0,0,0.6) 100%);
+      z-index: 1;
+    }
+    #hero-content {
+      position: absolute; inset: 0; z-index: 2; display: flex;
+      flex-direction: column; align-items: center; justify-content: flex-end;
+      padding-bottom: clamp(60px,10vh,100px); text-align: center; padding-left: 24px; padding-right: 24px;
+    }
+    .text-hero-eyebrow {
+      font-family: var(--font-sans),sans-serif; font-weight: 200;
+      letter-spacing: 0.28em; font-size: clamp(0.6rem,1.4vw,0.8rem);
+      text-transform: uppercase; color: rgba(255,255,255,0.75);
+    }
+    .text-hero-headline {
+      font-family: var(--font-serif),serif; font-weight: 300; font-style: italic;
+      font-size: clamp(2rem,5.5vw,3.4rem); color: #fff; line-height: 1.18;
+    }
+    .cover-scroll-hint { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 4; pointer-events: none; }
+
+    /* ============================================================ TYPOGRAPHY */
+    .text-section-label {
+      font-family: var(--font-sans),sans-serif; font-weight: 300; letter-spacing: 0.3em;
+      font-size: 0.68rem; text-transform: uppercase; color: var(--color-accent);
+    }
+    .text-child-name {
+      font-family: var(--font-script),cursive;
+      font-size: clamp(4.5rem,15vw,10rem); color: var(--color-dark); line-height: 1;
+    }
+    .text-age-number {
+      font-family: var(--font-serif),serif; font-weight: 300;
+      font-size: clamp(5.5rem,20vw,13rem); line-height: 1;
+      color: transparent; -webkit-text-stroke: 1px var(--color-accent);
+    }
+
+    /* ============================================================ SECTIONS */
+    .section-wrapper { width: 100%; max-width: 1100px; margin: 0 auto; padding: clamp(64px,10vh,128px) clamp(20px,6vw,80px); }
+
+    /* ============================================================ DECO SLOTS */
+    .deco-slot { position: relative; overflow: hidden; border-radius: 2px; }
+    .deco-slot img, .deco-slot video { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .deco-slot iframe { width: 100%; height: 100%; border: none; display: block; }
+    .deco-slot-placeholder {
+      width: 100%; height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      border: 1px dashed rgba(201,169,110,0.3); background: rgba(201,169,110,0.04);
+      border-radius: 2px; padding: 20px;
+    }
+    .deco-slot-placeholder span { font-family: var(--font-sans),sans-serif; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(201,169,110,0.5); text-align: center; }
+    .deco-float { position: absolute; pointer-events: none; z-index: 5; }
+
+    /* ============================================================ REVEAL */
+    .reveal { opacity: 0; transform: translateY(48px); transition: opacity 0.9s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.25s; }
+    .reveal-delay-3 { transition-delay: 0.4s; }
+    .reveal-delay-4 { transition-delay: 0.55s; }
+    .reveal-delay-5 { transition-delay: 0.7s; }
+    .reveal-left { opacity: 0; transform: translateX(-48px); transition: opacity 0.9s ease, transform 0.9s ease; }
+    .reveal-right { opacity: 0; transform: translateX(48px); transition: opacity 0.9s ease, transform 0.9s ease; }
+    .reveal-left.revealed, .reveal-right.revealed { opacity: 1; transform: translateX(0); }
+    .reveal-scale { opacity: 0; transform: scale(0.88); transition: opacity 0.9s ease, transform 0.9s ease; }
+    .reveal-scale.revealed { opacity: 1; transform: scale(1); }
+
+    /* ============================================================ DIVIDERS */
+    .divider-line { width: 56px; height: 1px; background: linear-gradient(90deg,transparent,var(--color-accent),transparent); margin: 0 auto; }
+
+    /* ============================================================ DETAIL CARDS */
+    .detail-card { background: #fff; border: 0.5px solid var(--color-bg-deep); padding: 28px 24px; text-align: center; transition: transform 0.35s ease, box-shadow 0.35s ease; position: relative; overflow: hidden; }
+    .detail-card::before { content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg,transparent,var(--color-accent),transparent); transform: scaleX(0); transition: transform 0.4s ease; }
+    .detail-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(201,169,110,0.12); }
+    .detail-card:hover::before { transform: scaleX(1); }
+
+    /* ============================================================ MEDIA */
+    .media-wrapper { position: relative; overflow: hidden; background: #1a1612; }
+    .media-wrapper video, .media-wrapper img { width: 100%; height: 100%; display: block; }
+    .media-cover video, .media-cover img { object-fit: cover; object-position: center; }
+    .media-vertical { aspect-ratio: 9/16; max-width: 360px; margin: 0 auto; }
+    .media-vertical video, .media-vertical img { object-fit: contain; background: #1a1612; }
+    .embed-wrapper { position: relative; width: 100%; overflow: hidden; }
+    .embed-wrapper.aspect-16-9 { padding-top: 56.25%; }
+    .embed-wrapper.aspect-9-16 { padding-top: 177.78%; max-width: 360px; margin: 0 auto; }
+    .embed-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+    @media (max-width: 640px) { .media-vertical { max-width: 100%; } .embed-wrapper.aspect-9-16 { max-width: 100%; } }
+
+    /* ============================================================ LOCATION */
+    .location-box { background: linear-gradient(135deg,var(--color-bg) 0%,var(--color-bg-warm) 100%); border: 0.5px solid var(--color-bg-deep); position: relative; }
+
+    /* ============================================================ GIFT CARDS */
+    .gift-card { background: #fff; border: 0.5px solid var(--color-bg-deep); overflow: hidden; transition: transform 0.35s ease, box-shadow 0.35s ease; }
+    .gift-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,0.08); }
+    .gift-card-img { width: 100%; height: 200px; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .gift-card:hover .gift-card-img { transform: scale(1.05); }
+
+    /* ============================================================ BUTTONS */
+    .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--color-dark); color: var(--color-bg); font-family: var(--font-sans),sans-serif; font-weight: 300; letter-spacing: 0.2em; font-size: 0.75rem; text-transform: uppercase; padding: 16px 40px; border: none; cursor: pointer; text-decoration: none; transition: all 0.35s ease; position: relative; overflow: hidden; }
+    .btn-primary::after { content: ""; position: absolute; inset: 0; background: var(--color-accent); transform: translateX(-101%); transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); z-index: 0; }
+    .btn-primary span { position: relative; z-index: 1; }
+    .btn-primary:hover::after { transform: translateX(0); }
+    .btn-outline { display: inline-flex; align-items: center; gap: 10px; background: transparent; color: var(--color-dark); font-family: var(--font-sans),sans-serif; font-weight: 300; letter-spacing: 0.2em; font-size: 0.75rem; text-transform: uppercase; padding: 15px 38px; border: 1px solid var(--color-dark); cursor: pointer; text-decoration: none; transition: all 0.35s ease; }
+    .btn-outline:hover { background: var(--color-dark); color: var(--color-bg); }
+    .btn-gold { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg,var(--color-accent) 0%,#D4B97E 50%,var(--color-accent) 100%); color: #fff; font-family: var(--font-sans),sans-serif; font-weight: 400; letter-spacing: 0.15em; font-size: 0.8rem; text-transform: uppercase; padding: 16px 44px; border: none; cursor: pointer; text-decoration: none; transition: all 0.35s ease; box-shadow: 0 4px 20px rgba(201,169,110,0.3); }
+    .btn-gold:hover { box-shadow: 0 8px 32px rgba(201,169,110,0.45); transform: translateY(-2px); filter: brightness(1.05); }
+
+    /* ============================================================ RSVP & CLOSING */
+    #rsvp-section { background: linear-gradient(135deg,var(--color-dark) 0%,#3d342e 100%); position: relative; overflow: hidden; }
+    #rsvp-section::before { content: ""; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23C9A96E' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+    #closing-section { background: linear-gradient(180deg,var(--color-bg) 0%,var(--color-bg-warm) 100%); position: relative; text-align: center; }
+
+    /* ============================================================ PARALLAX & FLOAT */
+    .parallax-layer { will-change: transform; }
+    @keyframes floatAnim { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-14px); } }
+    .float-anim { animation: floatAnim 6s ease-in-out infinite; }
+    @keyframes fadeSlideUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+    .anim-fade-up { opacity:0; animation: fadeSlideUp 0.9s ease forwards; }
+    .bg-particle { position: absolute; border-radius: 50%; background: radial-gradient(circle,rgba(201,169,110,0.12),transparent); pointer-events: none; }
+    @media (max-width: 480px) { .deco-float { display: none; } }
+
+    /* ============================================================ ADMIN TRIGGER */
+    #admin-trigger {
+      position: fixed; bottom: 20px; right: 20px; z-index: 8888;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(45,41,38,0.75); border: 1px solid rgba(201,169,110,0.25);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; backdrop-filter: blur(8px); transition: all 0.3s ease;
+      opacity: 0.4;
+    }
+    #admin-trigger:hover { opacity: 1; transform: scale(1.1); border-color: rgba(201,169,110,0.7); }
+    #admin-trigger svg { width: 15px; height: 15px; }
+
+    /* ============================================================ ADMIN OVERLAY */
+    #admin-overlay {
+      position: fixed; inset: 0; z-index: 9000; background: #1a1714;
+      display: flex; flex-direction: column; overflow: hidden;
+      opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+    }
+    #admin-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* Admin Login */
+    #admin-login {
+      position: absolute; inset: 0; background: #1a1714;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 2; transition: opacity 0.4s ease;
+    }
+    #admin-login.hidden { opacity: 0; pointer-events: none; }
+    .admin-login-card {
+      background: #231f1c; border: 0.5px solid rgba(201,169,110,0.2);
+      padding: 48px 40px; max-width: 380px; width: 100%; text-align: center;
+    }
+
+    /* Admin Panel */
+    #admin-panel { display: flex; flex-direction: column; height: 100%; }
+    #admin-panel.hidden { display: none; }
+
+    /* Admin Header */
+    .admin-header {
+      background: #231f1c; border-bottom: 0.5px solid rgba(201,169,110,0.15);
+      padding: 0 24px; display: flex; align-items: center; justify-content: space-between;
+      min-height: 58px; flex-shrink: 0;
+    }
+
+    /* Admin Tabs */
+    .admin-tabs-wrap { background: #1e1a17; border-bottom: 0.5px solid rgba(201,169,110,0.12); flex-shrink: 0; overflow-x: auto; }
+    .admin-tabs { display: flex; padding: 0 16px; gap: 0; min-width: max-content; }
+    .admin-tab {
+      font-family: 'Jost',sans-serif; font-size: 0.7rem; font-weight: 300;
+      letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.35);
+      padding: 14px 18px; border-bottom: 2px solid transparent;
+      cursor: pointer; transition: all 0.25s ease; white-space: nowrap;
+    }
+    .admin-tab:hover { color: rgba(255,255,255,0.65); }
+    .admin-tab.active { color: #C9A96E; border-bottom-color: #C9A96E; }
+
+    /* Admin Content */
+    .admin-content { flex: 1; overflow-y: auto; padding: 28px 24px 100px; }
+    .admin-content::-webkit-scrollbar { width: 4px; }
+    .admin-content::-webkit-scrollbar-track { background: #1a1714; }
+    .admin-content::-webkit-scrollbar-thumb { background: rgba(201,169,110,0.3); border-radius: 4px; }
+
+    .admin-section { display: none; }
+    .admin-section.active { display: block; }
+
+    /* Admin Form Elements */
+    .admin-field { margin-bottom: 20px; }
+    .admin-label { display: block; font-family: 'Jost',sans-serif; font-size: 0.68rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,169,110,0.75); margin-bottom: 8px; }
+    .admin-input, .admin-textarea, .admin-select {
+      width: 100%; background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.85); font-family: 'Jost',sans-serif; font-size: 0.85rem;
+      font-weight: 300; padding: 12px 14px; outline: none; border-radius: 2px;
+      transition: border-color 0.25s ease;
+    }
+    .admin-input:focus, .admin-textarea:focus, .admin-select:focus { border-color: rgba(201,169,110,0.5); }
+    .admin-textarea { resize: vertical; min-height: 88px; }
+    .admin-select option { background: #231f1c; }
+    .admin-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 600px) { .admin-row { grid-template-columns: 1fr; } }
+    .admin-hint { font-family: 'Jost',sans-serif; font-size: 0.7rem; font-weight: 300; color: rgba(255,255,255,0.25); margin-top: 5px; letter-spacing: 0.05em; }
+
+    /* Admin section title */
+    .admin-section-title { font-family: 'Cormorant Garamond',serif; font-weight: 300; font-size: 1.4rem; color: rgba(255,255,255,0.8); margin-bottom: 6px; }
+    .admin-section-desc { font-family: 'Jost',sans-serif; font-size: 0.75rem; font-weight: 300; color: rgba(255,255,255,0.3); margin-bottom: 28px; letter-spacing: 0.05em; }
+    .admin-divider { border: none; border-top: 0.5px solid rgba(255,255,255,0.07); margin: 24px 0; }
+
+    /* Gift item builder */
+    .admin-gift-item { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.08); padding: 20px; margin-bottom: 14px; border-radius: 2px; position: relative; }
+    .admin-gift-item-title { font-family: 'Jost',sans-serif; font-size: 0.7rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(201,169,110,0.6); margin-bottom: 14px; }
+    .btn-remove-gift { position: absolute; top: 14px; right: 14px; background: rgba(255,80,80,0.1); border: 0.5px solid rgba(255,80,80,0.25); color: rgba(255,100,100,0.7); font-size: 0.65rem; font-family: 'Jost',sans-serif; letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 10px; cursor: pointer; border-radius: 2px; transition: all 0.2s ease; }
+    .btn-remove-gift:hover { background: rgba(255,80,80,0.2); color: rgba(255,120,120,0.9); }
+    .btn-add-gift { background: rgba(201,169,110,0.08); border: 0.5px dashed rgba(201,169,110,0.3); color: rgba(201,169,110,0.7); font-family: 'Jost',sans-serif; font-size: 0.7rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; padding: 14px; width: 100%; cursor: pointer; border-radius: 2px; transition: all 0.25s ease; margin-top: 6px; }
+    .btn-add-gift:hover { background: rgba(201,169,110,0.14); border-color: rgba(201,169,110,0.5); color: rgba(201,169,110,0.9); }
+
+    /* Color swatch input */
+    .color-field { display: flex; align-items: center; gap: 10px; }
+    .color-field input[type="color"] { width: 40px; height: 40px; border: 0.5px solid rgba(255,255,255,0.1); border-radius: 3px; padding: 2px; background: transparent; cursor: pointer; }
+    .color-field .admin-input { flex: 1; }
+
+    /* Admin Footer */
+    .admin-footer {
+      position: sticky; bottom: 0; background: #1e1a17;
+      border-top: 0.5px solid rgba(201,169,110,0.15); padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0;
+    }
+    .btn-admin-save {
+      background: linear-gradient(135deg,#C9A96E,#D4B97E); color: #1a1714;
+      font-family: 'Jost',sans-serif; font-weight: 400; letter-spacing: 0.18em;
+      font-size: 0.75rem; text-transform: uppercase; padding: 13px 36px;
+      border: none; cursor: pointer; transition: all 0.3s ease; border-radius: 2px;
+    }
+    .btn-admin-save:hover { filter: brightness(1.08); box-shadow: 0 4px 20px rgba(201,169,110,0.3); transform: translateY(-1px); }
+    .btn-admin-preview {
+      background: transparent; border: 0.5px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.55);
+      font-family: 'Jost',sans-serif; font-weight: 300; letter-spacing: 0.18em;
+      font-size: 0.75rem; text-transform: uppercase; padding: 12px 28px;
+      cursor: pointer; transition: all 0.25s ease; border-radius: 2px;
+    }
+    .btn-admin-preview:hover { border-color: rgba(255,255,255,0.5); color: rgba(255,255,255,0.85); }
+    .admin-save-msg { font-family: 'Jost',sans-serif; font-size: 0.72rem; font-weight: 300; letter-spacing: 0.1em; color: rgba(201,169,110,0.8); opacity: 0; transition: opacity 0.4s ease; }
+    .admin-save-msg.visible { opacity: 1; }
+
+    /* Admin form - select type radio group */
+    .radio-group { display: flex; flex-wrap: wrap; gap: 8px; }
+    .radio-option { cursor: pointer; }
+    .radio-option input { display: none; }
+    .radio-option span {
+      display: inline-block; font-family: 'Jost',sans-serif; font-size: 0.68rem;
+      font-weight: 300; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 8px 16px; border: 0.5px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.4); transition: all 0.2s ease; border-radius: 2px;
+    }
+    .radio-option input:checked + span { border-color: rgba(201,169,110,0.5); color: #C9A96E; background: rgba(201,169,110,0.07); }
+
+    /* Admin login inputs */
+    .admin-login-input {
+      width: 100%; background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.85); font-family: 'Jost',sans-serif; font-size: 0.9rem;
+      font-weight: 300; padding: 14px 16px; outline: none; border-radius: 2px;
+      transition: border-color 0.25s ease; letter-spacing: 0.05em;
+    }
+    .admin-login-input:focus { border-color: rgba(201,169,110,0.5); }
+    .btn-admin-login {
+      width: 100%; background: linear-gradient(135deg,#C9A96E,#D4B97E); color: #1a1714;
+      font-family: 'Jost',sans-serif; font-weight: 400; letter-spacing: 0.2em;
+      font-size: 0.75rem; text-transform: uppercase; padding: 15px; border: none;
+      cursor: pointer; border-radius: 2px; transition: all 0.3s ease; margin-top: 6px;
+    }
+    .btn-admin-login:hover { filter: brightness(1.08); }
+    .admin-error { font-family: 'Jost',sans-serif; font-size: 0.72rem; font-weight: 300; color: rgba(255,100,100,0.75); margin-top: 10px; text-align: center; letter-spacing: 0.08em; min-height: 18px; }
+
+    /* Notification badge */
+    .admin-badge { display: inline-block; background: rgba(201,169,110,0.15); border: 0.5px solid rgba(201,169,110,0.3); color: rgba(201,169,110,0.8); font-family: 'Jost',sans-serif; font-size: 0.6rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border-radius: 20px; margin-left: 8px; }
+  </style>
+</head>
+<body>
+
+  <!-- LOADING -->
+  <div id="loading-screen" role="status" aria-label="Carregando convite">
+    <div class="loading-ring" aria-hidden="true"></div>
+    <p style="font-family:&#39;Jost&#39;,sans-serif;font-weight:200;letter-spacing:0.3em;font-size:0.68rem;text-transform:uppercase;color:#8A8279;">preparando seu convite</p>
+  </div>
+
+  <!-- ============================================================
+       DEFAULT CONFIG — dados padrão (substituídos pelo localStorage)
+  ============================================================ -->
+  <script>
+  const DEFAULT_CONFIG = {
+    meta: {
+      pageTitle: "Convite Digital Premium",
+      adminPassword: "convite2025",
+    },
+    appearance: {
+      accentColor:   "#C9A96E",
+      accentLight:   "#E8D5B0",
+      bgColor:       "#FAF8F4",
+      bgWarm:        "#F2EDE6",
+      darkColor:     "#2D2926",
+      midColor:      "#5A534D",
+      mutedColor:    "#8A8279",
+      fontSerif:     "Cormorant Garamond",
+      fontSans:      "Jost",
+      fontScript:    "Pinyon Script",
+    },
+    cover: {
+      mediaType:  "video_url",
+      videoUrl:   "https://www.w3schools.com/html/mov_bbb.mp4",
+      embedHtml:  "",
+      imageUrl:   "",
+      eyebrow:    "toque para descobrir",
+      buttonText: "Abrir Convite",
+    },
+    hero: {
+      mediaType:  "video_url",
+      videoUrl:   "https://www.w3schools.com/html/mov_bbb.mp4",
+      embedHtml:  "",
+      imageUrl:   "",
+      eyebrow:    "com muito amor",
+      titleLine1: "Uma celebração",
+      titleLine2: "especial espera por você",
+      deco: { mediaType: "", mediaUrl: "", embedHtml: "", mediaAlt: "", position: "bottom-right", width: "120px" },
+    },
+    welcome: {
+      eyebrow:   "com muito amor",
+      headline:  "Chegou o momento de celebrar",
+      body:      "Cada detalhe foi preparado com carinho para que este dia seja inesquecível. Estamos ansiosos para compartilhar esta alegria com você.",
+      mediaType: "image",
+      mediaUrl:  "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=80",
+      mediaAlt:  "Decoração de festa infantil com balões e flores",
+      deco: { mediaType: "", mediaUrl: "", embedHtml: "", mediaAlt: "", position: "top-right", width: "100px" },
+    },
+    child: {
+      name:     "Sofia",
+      age:      "5",
+      ageLabel: "anos",
+      tagline:  "cinco anos de pura alegria, amor e descobertas",
+      deco: { mediaType: "", mediaUrl: "", embedHtml: "", mediaAlt: "", position: "top-left", width: "110px" },
+    },
+    event: {
+      date:    "Sábado, 21 de Junho de 2025",
+      time:    "16h às 20h",
+      deco: { mediaType: "", mediaUrl: "", embedHtml: "", mediaAlt: "", position: "top-right", width: "90px" },
+    },
+    location: {
+      name:            "Buffet Mundo Encantado",
+      address:         "Rua das Flores, 123 — Jardim Europa, São Paulo – SP",
+      mapsUrl:         "https://maps.google.com",
+      venueMediaType:  "image",
+      venueMediaUrl:   "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&q=80",
+      venueMediaAlt:   "Salão decorado para festa infantil",
+      deco: { mediaType: "", mediaUrl: "", embedHtml: "", mediaAlt: "", position: "bottom-left", width: "100px" },
+    },
+    gifts: {
+      eyebrow:     "sugestão de presentes",
+      headline:    "O que vai deixar ela ainda mais feliz",
+      body:        "Pensamos com carinho em algumas ideias, mas o que importa mesmo é a sua presença.",
+      listUrl:     "",
+      listBtnText: "Ver Lista Completa de Presentes",
+      deco: { mediaType: "", mediaUrl: "", embedHtml: "", mediaAlt: "", position: "top-left", width: "100px" },
+      items: [
+        { title: "Jogos Educativos", description: "Kits de quebra-cabeça, jogos de memória e atividades criativas.", mediaType: "image", mediaUrl: "https://images.unsplash.com/photo-1558877385-81a1c7e67d72?w=600&q=80", mediaAlt: "Jogos educativos infantis coloridos", linkUrl: "", linkText: "" },
+        { title: "Arte & Criatividade", description: "Tintas, massinha, canetinhas e kits de artes plásticas.", mediaType: "image", mediaUrl: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=600&q=80", mediaAlt: "Materiais de arte infantil", linkUrl: "", linkText: "" },
+        { title: "Livros Infantis", description: "Histórias mágicas para alimentar a imaginação e o amor pelos livros.", mediaType: "image", mediaUrl: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&q=80", mediaAlt: "Livros infantis coloridos", linkUrl: "", linkText: "" },
+      ],
+    },
+    rsvp: {
+      eyebrow:        "confirmar presença",
+      headline:       "Mal podemos esperar para te ver",
+      body:           "Por favor, confirme sua presença até 14 de junho para que possamos garantir seu espaço especial.",
+      deadline:       "Confirmar até 14 de junho",
+      btnType:        "whatsapp",
+      whatsappNumber: "5511999999999",
+      whatsappMsg:    "Olá! Confirmo minha presença na festa! 🎉",
+      formUrl:        "",
+      btnText:        "Confirmar Presença",
+      deco: { mediaType: "", mediaUrl: "", embedHtml: "", mediaAlt: "", position: "top-right", width: "100px" },
+    },
+    closing: {
+      eyebrow:   "até breve",
+      headline:  "Obrigado por fazer parte\ndesta história",
+      body:      "Com amor e gratidão, aguardamos sua chegada para juntos celebrarmos mais um capítulo desta vida que nos foi presenteada.",
+      signature: "Família Silva",
+      mediaType: "image",
+      mediaUrl:  "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=900&q=80",
+      mediaAlt:  "Criança feliz em festa de aniversário",
+      deco: { mediaType: "", mediaUrl: "", embedHtml: "", mediaAlt: "", position: "top-right", width: "110px" },
+    },
+  };
+
+  /* Load from localStorage, deep merge with defaults */
+  function deepMerge(defaults, stored) {
+    const out = Object.assign({}, defaults);
+    for (const k in stored) {
+      if (stored[k] && typeof stored[k] === 'object' && !Array.isArray(stored[k])) {
+        out[k] = deepMerge(defaults[k] || {}, stored[k]);
+      } else {
+        out[k] = stored[k];
+      }
+    }
+    return out;
+  }
+
+  let CONFIG;
+  try {
+    const saved = localStorage.getItem('invite_config');
+    CONFIG = saved ? deepMerge(DEFAULT_CONFIG, JSON.parse(saved)) : JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+  } catch(e) {
+    CONFIG = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+  }
+  </script>
+
+  <!-- ============================================================ INVITE HTML ============================================================ -->
+
+  <!-- COVER -->
+  <section id="cover-screen" aria-label="Capa de abertura do convite">
+    <div id="cover-video-blur" aria-hidden="true"></div>
+    <div id="cover-video-main" aria-hidden="true"></div>
+    <div id="cover-embed-wrap" style="display:none;" aria-hidden="true"></div>
+    <div id="cover-overlay" aria-hidden="true"></div>
+    <div id="cover-btn-area" role="button" tabindex="0" aria-label="Abrir convite" onclick="openInvite()" onkeydown="if(event.key===&#39;Enter&#39;||event.key===&#39; &#39;)openInvite()">
+      <p class="cover-eyebrow anim-fade-up" id="cover-eyebrow" style="animation-delay:0.8s;"></p>
+      <button class="btn-cover-open anim-fade-up" style="animation-delay:1s;" id="cover-btn" tabindex="-1"></button>
+    </div>
+  </section>
+
+  <!-- HERO -->
+  <section id="hero" aria-label="Abertura do convite">
+    <div id="hero-media-slot" aria-hidden="true"></div>
+    <div id="hero-overlay" aria-hidden="true"></div>
+    <div id="hero-content">
+      <p class="text-hero-eyebrow mb-4 reveal" id="hero-eyebrow"></p>
+      <h1 class="text-hero-headline mb-6 reveal reveal-delay-2" id="hero-title"></h1>
+      <div class="reveal reveal-delay-3" style="display:flex;align-items:center;gap:14px;justify-content:center;">
+        <div style="width:32px;height:0.5px;background:rgba(255,255,255,0.4);"></div>
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M5 0L6 4L10 5L6 6L5 10L4 6L0 5L4 4L5 0Z" fill="rgba(255,255,255,0.6)"></path></svg>
+        <div style="width:32px;height:0.5px;background:rgba(255,255,255,0.4);"></div>
+      </div>
+    </div>
+    <div id="hero-deco-slot" class="deco-float" aria-hidden="true"></div>
+    <div class="cover-scroll-hint" aria-hidden="true" id="hero-scroll-hint" style="opacity:0.55;pointer-events:none;">
+      <svg width="20" height="32" viewBox="0 0 20 32" fill="none"><rect x="1" y="1" width="18" height="30" rx="9" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"></rect><circle cx="10" cy="9" r="3" fill="rgba(255,255,255,0.75)"><animate attributeName="cy" from="9" to="20" dur="1.9s" repeatCount="indefinite"></animate><animate attributeName="opacity" from="0.8" to="0" dur="1.9s" repeatCount="indefinite"></animate></circle></svg>
+    </div>
+  </section>
+
+  <!-- WELCOME -->
+  <section id="welcome-section" aria-label="Boas-vindas" style="position:relative;overflow:hidden;">
+    <div id="welcome-deco-slot" class="deco-float" aria-hidden="true"></div>
+    <div class="section-wrapper">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
+        <div class="order-2 md:order-1">
+          <p class="text-section-label mb-5 reveal" id="welcome-eyebrow"></p>
+          <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl font-light leading-tight mb-6 reveal reveal-delay-1" id="welcome-headline"></h2>
+          <div class="divider-line mb-8 reveal reveal-delay-2" style="margin-left:0;"></div>
+          <p class="font-sans font-light text-base leading-relaxed reveal reveal-delay-3" style="color:var(--color-mid);max-width:480px;" id="welcome-body"></p>
+        </div>
+        <div class="order-1 md:order-2 reveal-scale" id="welcome-media-slot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORNAMENT -->
+  <div class="py-4" aria-hidden="true">
+    <div style="display:flex;align-items:center;gap:12px;justify-content:center;max-width:240px;margin:0 auto;padding:0 20px;">
+      <div style="flex:1;height:0.5px;background:linear-gradient(90deg,transparent,rgba(201,169,110,0.5));"></div>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 0L8.2 5.8L14 7L8.2 8.2L7 14L5.8 8.2L0 7L5.8 5.8L7 0Z" fill="#C9A96E" opacity="0.65"></path></svg>
+      <div style="flex:1;height:0.5px;background:linear-gradient(90deg,rgba(201,169,110,0.5),transparent);"></div>
+    </div>
+  </div>
+
+  <!-- NAME -->
+  <section id="name-section" aria-label="Nome da aniversariante" style="position:relative;overflow:hidden;">
+    <div class="bg-particle" style="width:380px;height:380px;top:-90px;left:-90px;opacity:0.45;" aria-hidden="true"></div>
+    <div class="bg-particle" style="width:280px;height:280px;bottom:-70px;right:-50px;opacity:0.35;" aria-hidden="true"></div>
+    <div id="name-deco-slot" class="deco-float" aria-hidden="true"></div>
+    <div class="section-wrapper text-center relative" style="z-index:2;">
+      <p class="text-section-label mb-8 reveal">a aniversariante</p>
+      <div class="reveal reveal-delay-1 mb-2"><span class="text-child-name" id="child-name-display"></span></div>
+      <p class="font-serif italic text-lg md:text-xl font-light mt-6 reveal reveal-delay-2" style="color:var(--color-muted);max-width:520px;margin-left:auto;margin-right:auto;" id="child-tagline"></p>
+      <div class="flex items-center justify-center gap-4 mt-10 reveal reveal-delay-3" aria-hidden="true">
+        <div style="width:36px;height:0.5px;background:var(--color-accent);"></div>
+        <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M4.5 0L5.4 3.6L9 4.5L5.4 5.4L4.5 9L3.6 5.4L0 4.5L3.6 3.6L4.5 0Z" fill="#C9A96E"></path></svg>
+        <div style="width:36px;height:0.5px;background:var(--color-accent);"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGE -->
+  <section id="age-section" aria-label="Idade da aniversariante" style="background:linear-gradient(135deg,#F5ECD9 0%,#FAF8F4 100%);overflow:hidden;position:relative;">
+    <div class="section-wrapper relative" style="z-index:2;">
+      <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12">
+        <div class="reveal-scale"><span class="text-age-number parallax-layer" id="age-number-display" aria-label="Idade"></span></div>
+        <div class="reveal reveal-delay-2 text-center md:text-left" style="max-width:280px;">
+          <span class="font-serif font-light" style="font-size:clamp(2.2rem,5vw,3.2rem);color:var(--color-dark);" id="age-label-display"></span>
+          <div class="divider-line mt-4 mb-4" style="margin-left:0;"></div>
+          <p class="font-sans font-light text-sm leading-relaxed" style="color:var(--color-muted);">de histórias, sorrisos e momentos que ficam para sempre</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATETIME -->
+  <section id="datetime-section" aria-label="Data e horário do evento" style="position:relative;overflow:hidden;">
+    <div id="datetime-deco-slot" class="deco-float" aria-hidden="true"></div>
+    <div class="section-wrapper">
+      <p class="text-section-label text-center mb-10 reveal">quando nos encontramos</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto">
+        <div class="detail-card reveal reveal-delay-1">
+          <div class="mb-4 flex justify-center" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="2" y="4" width="24" height="22" rx="2" stroke="#C9A96E" stroke-width="1.2"></rect><line x1="2" y1="10" x2="26" y2="10" stroke="#C9A96E" stroke-width="1.2"></line><line x1="9" y1="2" x2="9" y2="7" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"></line><line x1="19" y1="2" x2="19" y2="7" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"></line><circle cx="14" cy="18" r="2" fill="#C9A96E"></circle></svg>
+          </div>
+          <p class="text-section-label mb-2">data</p>
+          <p class="font-serif text-lg font-light leading-snug" id="event-date"></p>
+        </div>
+        <div class="detail-card reveal reveal-delay-2">
+          <div class="mb-4 flex justify-center" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="11" stroke="#C9A96E" stroke-width="1.2"></circle><line x1="14" y1="6" x2="14" y2="14" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"></line><line x1="14" y1="14" x2="19" y2="18" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"></line><circle cx="14" cy="14" r="1.5" fill="#C9A96E"></circle></svg>
+          </div>
+          <p class="text-section-label mb-2">horário</p>
+          <p class="font-serif text-lg font-light leading-snug" id="event-time"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section id="location-section" aria-label="Local do evento" style="background:var(--color-bg-warm);position:relative;overflow:hidden;">
+    <div id="location-deco-slot" class="deco-float" aria-hidden="true"></div>
+    <div class="section-wrapper">
+      <p class="text-section-label text-center mb-10 reveal">onde tudo acontece</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center max-w-4xl mx-auto">
+        <div class="location-box p-8 md:p-10 reveal-left">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#C9A96E" stroke-width="1.2" fill="none"></path><circle cx="12" cy="9" r="2.5" stroke="#C9A96E" stroke-width="1.2"></circle></svg>
+          <h3 class="font-serif text-2xl md:text-3xl font-light mb-2 mt-4" id="event-location"></h3>
+          <p class="font-sans font-light text-sm leading-relaxed mb-8" style="color:var(--color-muted);" id="event-address"></p>
+          <a id="maps-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z" fill="currentColor" opacity="0.9"></path><circle cx="8" cy="6" r="1.8" fill="#2D2926"></circle></svg>
+            <span>Ver no Google Maps</span>
+          </a>
+        </div>
+        <div class="reveal-right" id="venue-media-slot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GIFTS -->
+  <section id="gifts-section" aria-label="Sugestão de presentes" style="position:relative;overflow:hidden;">
+    <div id="gifts-deco-slot" class="deco-float" aria-hidden="true"></div>
+    <div class="section-wrapper">
+      <div class="text-center mb-14">
+        <p class="text-section-label mb-4 reveal" id="gifts-eyebrow"></p>
+        <h2 class="font-serif text-3xl md:text-4xl font-light mb-4 reveal reveal-delay-1" id="gifts-headline"></h2>
+        <p class="font-sans font-light text-sm leading-relaxed reveal reveal-delay-2" style="color:var(--color-muted);max-width:400px;margin:0 auto;" id="gifts-body"></p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="gifts-grid"></div>
+      <div class="text-center reveal reveal-delay-1">
+        <a id="gifts-list-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-outline inline-flex">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="3" width="12" height="1.2" rx="0.6" fill="currentColor"></rect><rect x="2" y="7" width="8" height="1.2" rx="0.6" fill="currentColor"></rect><rect x="2" y="11" width="10" height="1.2" rx="0.6" fill="currentColor"></rect></svg>
+          <span id="gifts-list-btn-text"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section id="rsvp-section" aria-label="Confirmação de presença">
+    <div id="rsvp-deco-slot" class="deco-float" aria-hidden="true"></div>
+    <div class="absolute opacity-10 pointer-events-none" aria-hidden="true" style="width:200px;height:200px;top:20px;left:10px;border-radius:50%;background:radial-gradient(circle,#C9A96E,transparent);"></div>
+    <div class="absolute opacity-10 pointer-events-none" aria-hidden="true" style="width:160px;height:160px;bottom:16px;right:8px;border-radius:50%;background:radial-gradient(circle,#C9A96E,transparent);"></div>
+    <div class="section-wrapper relative text-center" style="z-index:2;">
+      <p class="text-section-label mb-5 reveal" style="color:rgba(201,169,110,0.8);" id="rsvp-eyebrow"></p>
+      <h2 class="font-serif font-light text-white leading-tight mb-6 reveal reveal-delay-1" style="font-size:clamp(2rem,5vw,3.2rem);" id="rsvp-headline"></h2>
+      <div class="divider-line mb-8 reveal reveal-delay-2"></div>
+      <p class="font-sans font-light text-sm leading-relaxed mb-4 reveal reveal-delay-3" style="color:rgba(255,255,255,0.6);max-width:440px;margin-left:auto;margin-right:auto;" id="rsvp-body"></p>
+      <div class="inline-flex items-center gap-3 mb-10 reveal reveal-delay-4" style="border:0.5px solid rgba(201,169,110,0.25);padding:8px 20px;">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="6" stroke="#C9A96E" stroke-width="1"></circle><line x1="7" y1="3.5" x2="7" y2="7" stroke="#C9A96E" stroke-width="1.2" stroke-linecap="round"></line><line x1="7" y1="7" x2="9.5" y2="9" stroke="#C9A96E" stroke-width="1.2" stroke-linecap="round"></line></svg>
+        <span class="font-sans font-light text-xs tracking-widest uppercase" style="color:#E8D5B0;" id="rsvp-deadline"></span>
+      </div>
+      <div class="reveal reveal-delay-5"><a id="rsvp-btn" href="#" class="btn-gold inline-flex"><span id="rsvp-btn-text"></span></a></div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section id="closing-section" aria-label="Mensagem final">
+    <div id="closing-deco-slot" class="deco-float" aria-hidden="true"></div>
+    <div id="closing-media-bg" class="absolute inset-0 z-0 overflow-hidden" aria-hidden="true"></div>
+    <div class="absolute inset-0 z-0" style="background:linear-gradient(180deg,rgba(250,248,244,0.95) 0%,rgba(242,237,230,0.9) 100%);" aria-hidden="true"></div>
+    <div class="section-wrapper relative text-center" style="z-index:2;">
+      <p class="text-section-label mb-6 reveal" id="closing-eyebrow"></p>
+      <div class="reveal reveal-delay-1 float-anim mb-6" aria-hidden="true" style="display:inline-block;">
+        <svg width="34" height="34" viewBox="0 0 36 36" fill="none" style="margin:0 auto;"><path d="M18 0L21.5 14.5L36 18L21.5 21.5L18 36L14.5 21.5L0 18L14.5 14.5L18 0Z" fill="#C9A96E" opacity="0.55"></path></svg>
+      </div>
+      <h2 class="font-serif font-light leading-tight mb-8 reveal reveal-delay-2" style="font-size:clamp(1.9rem,5vw,3.2rem);white-space:pre-line;" id="closing-headline"></h2>
+      <p class="font-sans font-light text-sm leading-relaxed mb-10 reveal reveal-delay-3" style="color:var(--color-mid);max-width:420px;margin-left:auto;margin-right:auto;" id="closing-body"></p>
+      <div class="reveal reveal-delay-4">
+        <div class="divider-line mb-5"></div>
+        <p class="font-script" style="font-size:clamp(2.4rem,6vw,3.6rem);color:var(--color-accent);" id="closing-signature"></p>
+        <div class="divider-line mt-5"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="text-align:center;padding:28px 20px;background:var(--color-dark);" aria-label="Rodapé">
+    <p class="font-sans font-light text-xs tracking-widest uppercase" style="color:#5A534D;">convite digital criado com amor</p>
+  </footer>
+
+  <!-- ============================================================ ADMIN TRIGGER ============================================================ -->
+  <button id="admin-trigger" aria-label="Painel administrativo" onclick="openAdmin()" title="Painel Admin">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round">
+      <rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path>
+    </svg>
+  </button>
+
+  <!-- ============================================================ ADMIN OVERLAY ============================================================ -->
+  <div id="admin-overlay" role="dialog" aria-label="Painel administrativo" aria-modal="true">
+
+    <!-- Login Screen -->
+    <div id="admin-login">
+      <div class="admin-login-card">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.2" stroke-linecap="round" style="margin:0 auto 20px;">
+          <rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path>
+        </svg>
+        <h2 style="font-family:&#39;Cormorant Garamond&#39;,serif;font-weight:300;font-size:1.6rem;color:rgba(255,255,255,0.85);margin-bottom:6px;">Painel Admin</h2>
+        <p style="font-family:&#39;Jost&#39;,sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.15em;color:rgba(255,255,255,0.3);margin-bottom:28px;text-transform:uppercase;">acesso restrito</p>
+        <input type="password" id="admin-pwd-input" class="admin-login-input" placeholder="Senha de acesso" autocomplete="current-password" onkeydown="if(event.key===&#39;Enter&#39;)adminLogin()"/>
+        <p id="admin-login-error" class="admin-error"></p>
+        <button class="btn-admin-login" onclick="adminLogin()" style="margin-top:16px;">Entrar</button>
+        <button onclick="closeAdmin()" style="background:none;border:none;color:rgba(255,255,255,0.25);font-family:&#39;Jost&#39;,sans-serif;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;margin-top:16px;padding:8px;">Fechar</button>
+      </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="hidden">
+
+      <!-- Header -->
+      <div class="admin-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path></svg>
+          <span style="font-family:&#39;Jost&#39;,sans-serif;font-size:0.75rem;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.65);">Painel Administrativo</span>
+          <span class="admin-badge">Template</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button onclick="adminPreview()" class="btn-admin-preview" style="padding:8px 18px;font-size:0.68rem;">Visualizar</button>
+          <button onclick="adminLogout()" style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-family:&#39;Jost&#39;,sans-serif;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;padding:8px 12px;transition:color 0.2s ease;" onmouseover="this.style.color=&#39;rgba(255,255,255,0.7)&#39;" onmouseout="this.style.color=&#39;rgba(255,255,255,0.3)&#39;">Sair</button>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="admin-tabs-wrap">
+        <div class="admin-tabs" id="admin-tabs">
+          <div class="admin-tab active" data-tab="cover">Capa</div>
+          <div class="admin-tab" data-tab="hero">Hero</div>
+          <div class="admin-tab" data-tab="welcome">Boas-vindas</div>
+          <div class="admin-tab" data-tab="child">Criança</div>
+          <div class="admin-tab" data-tab="event">Evento</div>
+          <div class="admin-tab" data-tab="location">Local</div>
+          <div class="admin-tab" data-tab="gifts">Presentes</div>
+          <div class="admin-tab" data-tab="rsvp">RSVP</div>
+          <div class="admin-tab" data-tab="closing">Encerramento</div>
+          <div class="admin-tab" data-tab="appearance">Aparência</div>
+          <div class="admin-tab" data-tab="settings">Config</div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="admin-content">
+
+        <!-- ====== CAPA ====== -->
+        <div class="admin-section active" id="tab-cover">
+          <h3 class="admin-section-title">Capa de Abertura</h3>
+          <p class="admin-section-desc">Primeira tela — vídeo, imagem ou embed em tela cheia</p>
+
+          <div class="admin-field">
+            <label class="admin-label">Tipo de mídia</label>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="cover_mediaType" value="video_url"/> <span>Vídeo (URL)</span></label>
+              <label class="radio-option"><input type="radio" name="cover_mediaType" value="image_url"/> <span>Imagem (URL)</span></label>
+              <label class="radio-option"><input type="radio" name="cover_mediaType" value="embed_html"/> <span>Embed HTML</span></label>
+            </div>
+          </div>
+          <div class="admin-field" id="cover_videoUrl_field">
+            <label class="admin-label">URL do Vídeo</label>
+            <input type="url" id="cover_videoUrl" class="admin-input" placeholder="https://...mp4"/>
+            <p class="admin-hint">MP4 direto, Google Drive (export), Cloudinary, etc.</p>
+          </div>
+          <div class="admin-field" id="cover_imageUrl_field" style="display:none;">
+            <label class="admin-label">URL da Imagem</label>
+            <input type="url" id="cover_imageUrl" class="admin-input" placeholder="https://...jpg"/>
+          </div>
+          <div class="admin-field" id="cover_embedHtml_field" style="display:none;">
+            <label class="admin-label">Embed HTML</label>
+            <textarea id="cover_embedHtml" class="admin-textarea" placeholder="&lt;iframe src=&#34;...&#34; ...&gt;&lt;/iframe&gt;"></textarea>
+          </div>
+          <hr class="admin-divider"/>
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Texto acima do botão</label>
+              <input type="text" id="cover_eyebrow" class="admin-input" placeholder="toque para descobrir"/>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Texto do botão</label>
+              <input type="text" id="cover_buttonText" class="admin-input" placeholder="Abrir Convite"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== HERO ====== -->
+        <div class="admin-section" id="tab-hero">
+          <h3 class="admin-section-title">Tela Hero</h3>
+          <p class="admin-section-desc">Segunda tela — fundo atmosférico com título principal</p>
+
+          <div class="admin-field">
+            <label class="admin-label">Tipo de mídia de fundo</label>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="hero_mediaType" value="video_url"/> <span>Vídeo (URL)</span></label>
+              <label class="radio-option"><input type="radio" name="hero_mediaType" value="image_url"/> <span>Imagem (URL)</span></label>
+              <label class="radio-option"><input type="radio" name="hero_mediaType" value="embed_html"/> <span>Embed HTML</span></label>
+            </div>
+          </div>
+          <div class="admin-field" id="hero_videoUrl_field">
+            <label class="admin-label">URL do Vídeo</label>
+            <input type="url" id="hero_videoUrl" class="admin-input" placeholder="https://...mp4"/>
+          </div>
+          <div class="admin-field" id="hero_imageUrl_field" style="display:none;">
+            <label class="admin-label">URL da Imagem</label>
+            <input type="url" id="hero_imageUrl" class="admin-input" placeholder="https://...jpg"/>
+          </div>
+          <div class="admin-field" id="hero_embedHtml_field" style="display:none;">
+            <label class="admin-label">Embed HTML</label>
+            <textarea id="hero_embedHtml" class="admin-textarea" placeholder="&lt;iframe ...&gt;&lt;/iframe&gt;"></textarea>
+          </div>
+          <hr class="admin-divider"/>
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Eyebrow (texto pequeno)</label>
+              <input type="text" id="hero_eyebrow" class="admin-input" placeholder="com muito amor"/>
+            </div>
+          </div>
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Título — linha 1</label>
+              <input type="text" id="hero_titleLine1" class="admin-input" placeholder="Uma celebração"/>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Título — linha 2 (itálico)</label>
+              <input type="text" id="hero_titleLine2" class="admin-input" placeholder="especial espera por você"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== BOAS-VINDAS ====== -->
+        <div class="admin-section" id="tab-welcome">
+          <h3 class="admin-section-title">Boas-vindas</h3>
+          <p class="admin-section-desc">Seção de abertura do convite com texto e imagem</p>
+
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Eyebrow</label>
+              <input type="text" id="welcome_eyebrow" class="admin-input" placeholder="com muito amor"/>
+            </div>
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Título</label>
+            <input type="text" id="welcome_headline" class="admin-input" placeholder="Chegou o momento de celebrar"/>
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Texto de boas-vindas</label>
+            <textarea id="welcome_body" class="admin-textarea" placeholder="Cada detalhe foi preparado com carinho..."></textarea>
+          </div>
+          <hr class="admin-divider"/>
+          <div class="admin-field">
+            <label class="admin-label">Tipo de mídia</label>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="welcome_mediaType" value="image"/> <span>Imagem</span></label>
+              <label class="radio-option"><input type="radio" name="welcome_mediaType" value="video"/> <span>Vídeo</span></label>
+              <label class="radio-option"><input type="radio" name="welcome_mediaType" value="embed"/> <span>Embed</span></label>
+            </div>
+          </div>
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">URL da mídia</label>
+              <input type="url" id="welcome_mediaUrl" class="admin-input" placeholder="https://..."/>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Texto alternativo (acessibilidade)</label>
+              <input type="text" id="welcome_mediaAlt" class="admin-input" placeholder="Descreva a imagem"/>
+            </div>
+          </div>
+          <div class="admin-field" id="welcome_embedHtml_field" style="display:none;">
+            <label class="admin-label">Embed HTML</label>
+            <textarea id="welcome_embedHtml" class="admin-textarea" placeholder="&lt;iframe ...&gt;&lt;/iframe&gt;"></textarea>
+          </div>
+        </div>
+
+        <!-- ====== CRIANÇA ====== -->
+        <div class="admin-section" id="tab-child">
+          <h3 class="admin-section-title">Nome da Criança</h3>
+          <p class="admin-section-desc">Informações principais da aniversariante</p>
+
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Nome da criança</label>
+              <input type="text" id="child_name" class="admin-input" placeholder="Sofia"/>
+              <p class="admin-hint">Exibido em tipografia script grande</p>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Idade (número)</label>
+              <input type="text" id="child_age" class="admin-input" placeholder="5"/>
+            </div>
+          </div>
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Label da idade</label>
+              <input type="text" id="child_ageLabel" class="admin-input" placeholder="anos"/>
+            </div>
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Tagline / mensagem da idade</label>
+            <input type="text" id="child_tagline" class="admin-input" placeholder="cinco anos de pura alegria, amor e descobertas"/>
+          </div>
+        </div>
+
+        <!-- ====== EVENTO ====== -->
+        <div class="admin-section" id="tab-event">
+          <h3 class="admin-section-title">Data &amp; Horário</h3>
+          <p class="admin-section-desc">Quando a festa acontecerá</p>
+
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Data (texto livre)</label>
+              <input type="text" id="event_date" class="admin-input" placeholder="Sábado, 21 de Junho de 2025"/>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Horário</label>
+              <input type="text" id="event_time" class="admin-input" placeholder="16h às 20h"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== LOCAL ====== -->
+        <div class="admin-section" id="tab-location">
+          <h3 class="admin-section-title">Local da Festa</h3>
+          <p class="admin-section-desc">Endereço e imagem do espaço</p>
+
+          <div class="admin-field">
+            <label class="admin-label">Nome do buffet / espaço</label>
+            <input type="text" id="location_name" class="admin-input" placeholder="Buffet Mundo Encantado"/>
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Endereço completo</label>
+            <input type="text" id="location_address" class="admin-input" placeholder="Rua das Flores, 123 — Jardim Europa, SP"/>
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Link Google Maps</label>
+            <input type="url" id="location_mapsUrl" class="admin-input" placeholder="https://maps.google.com/..."/>
+          </div>
+          <hr class="admin-divider"/>
+          <div class="admin-field">
+            <label class="admin-label">Tipo de mídia do espaço</label>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="location_venueMediaType" value="image"/> <span>Imagem</span></label>
+              <label class="radio-option"><input type="radio" name="location_venueMediaType" value="video"/> <span>Vídeo</span></label>
+              <label class="radio-option"><input type="radio" name="location_venueMediaType" value="embed"/> <span>Embed</span></label>
+            </div>
+          </div>
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">URL da foto/vídeo do espaço</label>
+              <input type="url" id="location_venueMediaUrl" class="admin-input" placeholder="https://..."/>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Texto alternativo</label>
+              <input type="text" id="location_venueMediaAlt" class="admin-input" placeholder="Salão decorado"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== PRESENTES ====== -->
+        <div class="admin-section" id="tab-gifts">
+          <h3 class="admin-section-title">Sugestão de Presentes</h3>
+          <p class="admin-section-desc">Itens e link da lista de presentes</p>
+
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Eyebrow</label>
+              <input type="text" id="gifts_eyebrow" class="admin-input" placeholder="sugestão de presentes"/>
+            </div>
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Título da seção</label>
+            <input type="text" id="gifts_headline" class="admin-input" placeholder="O que vai deixar ela ainda mais feliz"/>
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Texto descritivo</label>
+            <textarea id="gifts_body" class="admin-textarea"></textarea>
+          </div>
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Link da lista de presentes</label>
+              <input type="url" id="gifts_listUrl" class="admin-input" placeholder="https://..."/>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Texto do botão da lista</label>
+              <input type="text" id="gifts_listBtnText" class="admin-input" placeholder="Ver Lista Completa"/>
+            </div>
+          </div>
+
+          <hr class="admin-divider"/>
+          <p class="admin-label" style="margin-bottom:14px;">Itens de sugestão</p>
+          <div id="gifts-items-editor"></div>
+          <button class="btn-add-gift" onclick="addGiftItem()">+ Adicionar item</button>
+        </div>
+
+        <!-- ====== RSVP ====== -->
+        <div class="admin-section" id="tab-rsvp">
+          <h3 class="admin-section-title">Confirmação de Presença</h3>
+          <p class="admin-section-desc">Configuração do botão RSVP</p>
+
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Eyebrow</label>
+              <input type="text" id="rsvp_eyebrow" class="admin-input" placeholder="confirmar presença"/>
+            </div>
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Título</label>
+            <input type="text" id="rsvp_headline" class="admin-input" placeholder="Mal podemos esperar para te ver"/>
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Texto descritivo</label>
+            <textarea id="rsvp_body" class="admin-textarea"></textarea>
+          </div>
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Prazo (texto)</label>
+              <input type="text" id="rsvp_deadline" class="admin-input" placeholder="Confirmar até 14 de junho"/>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Texto do botão</label>
+              <input type="text" id="rsvp_btnText" class="admin-input" placeholder="Confirmar Presença"/>
+            </div>
+          </div>
+          <hr class="admin-divider"/>
+          <div class="admin-field">
+            <label class="admin-label">Tipo do botão</label>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="rsvp_btnType" value="whatsapp"/> <span>WhatsApp</span></label>
+              <label class="radio-option"><input type="radio" name="rsvp_btnType" value="url"/> <span>Link externo</span></label>
+            </div>
+          </div>
+          <div class="admin-row" id="rsvp_whatsapp_fields">
+            <div class="admin-field">
+              <label class="admin-label">Número WhatsApp (com DDI)</label>
+              <input type="text" id="rsvp_whatsappNumber" class="admin-input" placeholder="5511999999999"/>
+              <p class="admin-hint">Apenas números, sem espaços ou símbolos</p>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Mensagem pré-definida</label>
+              <input type="text" id="rsvp_whatsappMsg" class="admin-input" placeholder="Confirmo minha presença!"/>
+            </div>
+          </div>
+          <div class="admin-field" id="rsvp_url_field" style="display:none;">
+            <label class="admin-label">URL do formulário</label>
+            <input type="url" id="rsvp_formUrl" class="admin-input" placeholder="https://..."/>
+          </div>
+        </div>
+
+        <!-- ====== ENCERRAMENTO ====== -->
+        <div class="admin-section" id="tab-closing">
+          <h3 class="admin-section-title">Encerramento</h3>
+          <p class="admin-section-desc">Mensagem final e assinatura</p>
+
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Eyebrow</label>
+              <input type="text" id="closing_eyebrow" class="admin-input" placeholder="até breve"/>
+            </div>
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Título (use \n para quebra de linha)</label>
+            <textarea id="closing_headline" class="admin-textarea" style="min-height:72px;"></textarea>
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Texto de agradecimento</label>
+            <textarea id="closing_body" class="admin-textarea"></textarea>
+          </div>
+          <div class="admin-field">
+            <label class="admin-label">Assinatura (família)</label>
+            <input type="text" id="closing_signature" class="admin-input" placeholder="Família Silva"/>
+          </div>
+          <hr class="admin-divider"/>
+          <div class="admin-field">
+            <label class="admin-label">Tipo de mídia de fundo</label>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="closing_mediaType" value="image"/> <span>Imagem</span></label>
+              <label class="radio-option"><input type="radio" name="closing_mediaType" value="video"/> <span>Vídeo</span></label>
+              <label class="radio-option"><input type="radio" name="closing_mediaType" value="none"/> <span>Nenhuma</span></label>
+            </div>
+          </div>
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">URL da mídia</label>
+              <input type="url" id="closing_mediaUrl" class="admin-input" placeholder="https://..."/>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Texto alternativo</label>
+              <input type="text" id="closing_mediaAlt" class="admin-input" placeholder="Foto da criança"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== APARÊNCIA ====== -->
+        <div class="admin-section" id="tab-appearance">
+          <h3 class="admin-section-title">Aparência</h3>
+          <p class="admin-section-desc">Cores e tipografia do convite</p>
+
+          <p class="admin-label" style="margin-bottom:14px;">Cores</p>
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Cor de destaque (accent)</label>
+              <div class="color-field">
+                <input type="color" id="appearance_accentColor"/>
+                <input type="text" id="appearance_accentColorHex" class="admin-input" placeholder="#C9A96E"/>
+              </div>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Cor de fundo principal</label>
+              <div class="color-field">
+                <input type="color" id="appearance_bgColor"/>
+                <input type="text" id="appearance_bgColorHex" class="admin-input" placeholder="#FAF8F4"/>
+              </div>
+            </div>
+          </div>
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Cor do texto escuro</label>
+              <div class="color-field">
+                <input type="color" id="appearance_darkColor"/>
+                <input type="text" id="appearance_darkColorHex" class="admin-input" placeholder="#2D2926"/>
+              </div>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Cor de fundo quente</label>
+              <div class="color-field">
+                <input type="color" id="appearance_bgWarm"/>
+                <input type="text" id="appearance_bgWarmHex" class="admin-input" placeholder="#F2EDE6"/>
+              </div>
+            </div>
+          </div>
+
+          <hr class="admin-divider"/>
+          <p class="admin-label" style="margin-bottom:14px;">Tipografia</p>
+
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Fonte Serif (títulos)</label>
+              <select id="appearance_fontSerif" class="admin-select">
+                <option value="Cormorant Garamond">Cormorant Garamond (padrão)</option>
+                <option value="Playfair Display">Playfair Display</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Times New Roman">Times New Roman</option>
+              </select>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Fonte Sans (corpo)</label>
+              <select id="appearance_fontSans" class="admin-select">
+                <option value="Jost">Jost (padrão)</option>
+                <option value="Lato">Lato</option>
+                <option value="Helvetica Neue">Helvetica Neue</option>
+                <option value="Arial">Arial</option>
+              </select>
+            </div>
+          </div>
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Fonte Script (nome da criança)</label>
+              <select id="appearance_fontScript" class="admin-select">
+                <option value="Pinyon Script">Pinyon Script (padrão)</option>
+                <option value="Great Vibes">Great Vibes</option>
+                <option value="cursive">Cursiva do sistema</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== CONFIG ====== -->
+        <div class="admin-section" id="tab-settings">
+          <h3 class="admin-section-title">Configurações</h3>
+          <p class="admin-section-desc">Opções gerais do sistema</p>
+
+          <div class="admin-field">
+            <label class="admin-label">Título da página (aba do navegador)</label>
+            <input type="text" id="meta_pageTitle" class="admin-input" placeholder="Convite Digital Premium"/>
+          </div>
+          <hr class="admin-divider"/>
+          <p class="admin-label" style="margin-bottom:6px;">Segurança</p>
+          <p class="admin-hint" style="margin-bottom:14px;">Altere a senha de acesso ao painel administrativo</p>
+          <div class="admin-row">
+            <div class="admin-field">
+              <label class="admin-label">Nova senha</label>
+              <input type="password" id="new_password" class="admin-input" placeholder="Nova senha" autocomplete="new-password"/>
+            </div>
+            <div class="admin-field">
+              <label class="admin-label">Confirmar nova senha</label>
+              <input type="password" id="confirm_password" class="admin-input" placeholder="Repetir senha" autocomplete="new-password"/>
+            </div>
+          </div>
+          <p id="pwd-change-msg" class="admin-hint"></p>
+          <hr class="admin-divider"/>
+          <div class="admin-field">
+            <label class="admin-label" style="margin-bottom:10px;">Ações</label>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <button onclick="resetToDefaults()" style="background:rgba(255,80,80,0.08);border:0.5px solid rgba(255,80,80,0.2);color:rgba(255,100,100,0.6);font-family:&#39;Jost&#39;,sans-serif;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;padding:10px 20px;cursor:pointer;border-radius:2px;transition:all 0.2s ease;" onmouseover="this.style.background=&#39;rgba(255,80,80,0.15)&#39;" onmouseout="this.style.background=&#39;rgba(255,80,80,0.08)&#39;">
+                Restaurar padrões
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /admin-content -->
+
+      <!-- Footer -->
+      <div class="admin-footer">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <button class="btn-admin-save" onclick="saveConfig()">Salvar Alterações</button>
+          <span class="admin-save-msg" id="admin-save-msg">Salvo com sucesso</span>
+        </div>
+        <span style="font-family:&#39;Jost&#39;,sans-serif;font-size:0.65rem;font-weight:300;letter-spacing:0.1em;color:rgba(255,255,255,0.2);">Template Mestre v2.0</span>
+      </div>
+
+    </div><!-- /admin-panel -->
+  </div><!-- /admin-overlay -->
+
+
+  <!-- ============================================================ JAVASCRIPT ============================================================ -->
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    /* ============================================================ HELPERS ============================================================ */
+    function setText(id, val) { const el = document.getElementById(id); if (el && val !== undefined) el.textContent = val; }
+    function setHtml(id, html) { const el = document.getElementById(id); if (el) el.innerHTML = html; }
+
+    function renderMedia({ type, url, html, alt = "", variant = "cover", extraClasses = "" }) {
+      if (type === "embed" && html) {
+        const isV = variant === "vertical";
+        return `<div class="embed-wrapper ${isV ? "aspect-9-16" : "aspect-16-9"} ${extraClasses}">${html}</div>`;
+      }
+      if ((type === "video" || type === "video_url") && url) {
+        if (variant === "vertical") {
+          return `<div class="media-wrapper media-vertical ${extraClasses}"><video autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:contain;background:#1a1612;" aria-label="${alt}"><source src="${url}"/></video></div>`;
+        }
+        return `<div class="media-wrapper ${extraClasses}" style="aspect-ratio:16/9;"><video autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;" aria-label="${alt}"><source src="${url}"/></video></div>`;
+      }
+      if ((type === "image" || type === "image_url") && url) {
+        const st = variant === "vertical" ? "aspect-ratio:9/16;max-width:360px;margin:0 auto;" : "aspect-ratio:16/9;";
+        return `<div class="overflow-hidden ${extraClasses}" style="${st}"><img src="${url}" alt="${alt}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;"/></div>`;
+      }
+      return "";
+    }
+
+    function renderDecoSlot(slotEl, deco) {
+      if (!slotEl || !deco) return;
+      const hasMedia = deco.mediaType && (deco.mediaUrl || deco.embedHtml);
+      const w = deco.width || "100px";
+      const posStyles = { "top-left":"top:16px;left:16px;","top-right":"top:16px;right:16px;","bottom-left":"bottom:16px;left:16px;","bottom-right":"bottom:16px;right:16px;","center":"top:50%;left:50%;transform:translate(-50%,-50%);" };
+      slotEl.style.cssText = `${posStyles[deco.position||"top-right"]}width:${w};`;
+      if (hasMedia) {
+        if (deco.mediaType === "embed" && deco.embedHtml) { slotEl.innerHTML = `<div class="deco-slot" style="width:${w};height:${w};">${deco.embedHtml}</div>`; }
+        else if ((deco.mediaType === "video") && deco.mediaUrl) { slotEl.innerHTML = `<div class="deco-slot" style="width:${w};"><video autoplay muted loop playsinline style="width:100%;height:auto;object-fit:contain;" aria-label="${deco.mediaAlt||"Decoração"}"><source src="${deco.mediaUrl}"/></video></div>`; }
+        else if ((deco.mediaType === "image"||deco.mediaType==="gif") && deco.mediaUrl) { slotEl.innerHTML = `<div class="deco-slot" style="width:${w};"><img src="${deco.mediaUrl}" alt="${deco.mediaAlt||"Decoração"}" loading="lazy" style="width:100%;height:auto;object-fit:contain;display:block;"/></div>`; }
+      } else {
+        slotEl.innerHTML = `<div class="deco-slot-placeholder" style="width:${w};min-height:${w};"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" stroke="rgba(201,169,110,0.4)" stroke-width="1.2" stroke-dasharray="3 2"/><circle cx="8.5" cy="8.5" r="1.5" fill="rgba(201,169,110,0.4)"/><path d="M3 15l5-5 4 4 3-3 6 6" stroke="rgba(201,169,110,0.4)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg><span>slot<br>decoração</span></div>`;
+      }
+    }
+
+    /* ============================================================ APPLY APPEARANCE ============================================================ */
+    function applyAppearance(app) {
+      const r = document.documentElement.style;
+      r.setProperty('--color-accent',   app.accentColor || '#C9A96E');
+      r.setProperty('--color-accent-lt',app.accentLight || '#E8D5B0');
+      r.setProperty('--color-accent-sf',app.accentSoft  || '#F5ECD9');
+      r.setProperty('--color-bg',       app.bgColor     || '#FAF8F4');
+      r.setProperty('--color-bg-warm',  app.bgWarm      || '#F2EDE6');
+      r.setProperty('--color-bg-deep',  app.bgDeep      || '#E9E2D8');
+      r.setProperty('--color-dark',     app.darkColor   || '#2D2926');
+      r.setProperty('--color-mid',      app.midColor    || '#5A534D');
+      r.setProperty('--color-muted',    app.mutedColor  || '#8A8279');
+      r.setProperty('--font-serif',     `'${app.fontSerif||'Cormorant Garamond'}'`);
+      r.setProperty('--font-sans',      `'${app.fontSans ||'Jost'}'`);
+      r.setProperty('--font-script',    `'${app.fontScript||'Pinyon Script'}'`);
+    }
+
+    /* ============================================================ RENDER INVITE ============================================================ */
+    function renderInvite() {
+      applyAppearance(CONFIG.appearance);
+      document.title = CONFIG.meta.pageTitle || "Convite Digital Premium";
+
+      // Loading
+      setTimeout(() => { document.getElementById("loading-screen").classList.add("hidden"); }, 850);
+
+      // COVER
+      (function() {
+        const c = CONFIG.cover;
+        document.getElementById("cover-eyebrow").textContent = c.eyebrow || "";
+        document.getElementById("cover-btn").textContent = c.buttonText || "Abrir Convite";
+        const blurEl = document.getElementById("cover-video-blur");
+        const mainEl = document.getElementById("cover-video-main");
+        const embedEl = document.getElementById("cover-embed-wrap");
+        if (c.mediaType === "embed_html" && c.embedHtml) {
+          blurEl.style.display = "none"; mainEl.style.display = "none"; embedEl.style.display = "block";
+          embedEl.innerHTML = c.embedHtml;
+        } else if (c.mediaType === "video_url" && c.videoUrl) {
+          blurEl.innerHTML = `<video autoplay muted loop playsinline preload="auto" aria-hidden="true"><source src="${c.videoUrl}"/></video>`;
+          mainEl.innerHTML = `<video autoplay muted loop playsinline preload="auto" aria-hidden="true" style="height:100%;width:auto;max-width:100vw;object-fit:contain;display:block;"><source src="${c.videoUrl}"/></video>`;
+        } else if (c.mediaType === "image_url" && c.imageUrl) {
+          blurEl.innerHTML = `<img src="${c.imageUrl}" alt="" aria-hidden="true"/>`;
+          mainEl.innerHTML = `<img src="${c.imageUrl}" alt="Capa do convite" aria-hidden="true" style="height:100%;width:auto;max-width:100vw;object-fit:contain;display:block;"/>`;
+        }
+      })();
+
+      // HERO
+      (function() {
+        const h = CONFIG.hero;
+        setText("hero-eyebrow", h.eyebrow);
+        setHtml("hero-title", `${h.titleLine1}<br><em>${h.titleLine2}</em>`);
+        const slot = document.getElementById("hero-media-slot");
+        slot.innerHTML = "";
+        if (h.mediaType === "video_url" && h.videoUrl) {
+          slot.innerHTML = `<video id="hero-video-bg" autoplay muted loop playsinline preload="auto" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;"><source src="${h.videoUrl}"/></video>`;
+        } else if (h.mediaType === "embed_html" && h.embedHtml) {
+          slot.innerHTML = `<div id="hero-embed-container" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;">${h.embedHtml}</div>`;
+        } else if (h.mediaType === "image_url" && h.imageUrl) {
+          slot.innerHTML = `<img src="${h.imageUrl}" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;"/>`;
+        }
+        renderDecoSlot(document.getElementById("hero-deco-slot"), h.deco);
+      })();
+
+      // WELCOME
+      (function() {
+        const w = CONFIG.welcome;
+        setText("welcome-eyebrow", w.eyebrow); setText("welcome-headline", w.headline); setText("welcome-body", w.body);
+        const ms = document.getElementById("welcome-media-slot"); ms.innerHTML = "";
+        if (w.mediaType && (w.mediaUrl || w.embedHtml)) {
+          ms.innerHTML = renderMedia({ type: w.mediaType, url: w.mediaUrl, html: w.embedHtml, alt: w.mediaAlt, variant: "cover", extraClasses: "shadow-lg" });
+        }
+        renderDecoSlot(document.getElementById("welcome-deco-slot"), w.deco);
+      })();
+
+      // CHILD
+      setText("child-name-display", CONFIG.child.name);
+      setText("child-tagline", CONFIG.child.tagline);
+      setText("age-number-display", CONFIG.child.age);
+      setText("age-label-display", `${CONFIG.child.age} ${CONFIG.child.ageLabel || "anos"}`);
+      renderDecoSlot(document.getElementById("name-deco-slot"), CONFIG.child.deco);
+
+      // EVENT
+      setText("event-date", CONFIG.event.date); setText("event-time", CONFIG.event.time);
+      renderDecoSlot(document.getElementById("datetime-deco-slot"), CONFIG.event.deco);
+
+      // LOCATION
+      (function() {
+        const l = CONFIG.location;
+        setText("event-location", l.name); setText("event-address", l.address);
+        const mb = document.getElementById("maps-btn"); if (mb) mb.href = l.mapsUrl || "#";
+        const vs = document.getElementById("venue-media-slot"); vs.innerHTML = "";
+        if (l.venueMediaType && l.venueMediaUrl) {
+          vs.innerHTML = renderMedia({ type: l.venueMediaType, url: l.venueMediaUrl, alt: l.venueMediaAlt, variant: "cover", extraClasses: "shadow-md" });
+        }
+        renderDecoSlot(document.getElementById("location-deco-slot"), l.deco);
+      })();
+
+      // GIFTS
+      (function() {
+        const g = CONFIG.gifts;
+        setText("gifts-eyebrow", g.eyebrow); setText("gifts-headline", g.headline); setText("gifts-body", g.body);
+        const lb = document.getElementById("gifts-list-btn"); if (lb) lb.href = g.listUrl || "#";
+        setText("gifts-list-btn-text", g.listBtnText);
+        const grid = document.getElementById("gifts-grid"); grid.innerHTML = "";
+        if (g.items) {
+          g.items.forEach((item, i) => {
+            const dc = ["reveal-delay-1","reveal-delay-2","reveal-delay-3"][i] || "";
+            const card = document.createElement("div");
+            card.className = `gift-card reveal ${dc}`;
+            let mHtml = "";
+            if (item.mediaType === "image" && item.mediaUrl) {
+              mHtml = `<div style="overflow:hidden;height:200px;"><img src="${item.mediaUrl}" alt="${item.mediaAlt||item.title}" loading="lazy" class="gift-card-img"/></div>`;
+            } else if (item.mediaUrl || item.embedHtml) {
+              mHtml = renderMedia({ type: item.mediaType, url: item.mediaUrl, html: item.embedHtml, alt: item.mediaAlt||item.title, variant: "cover" });
+            }
+            const lHtml = item.linkUrl ? `<a href="${item.linkUrl}" target="_blank" rel="noopener noreferrer" class="text-section-label mt-4 inline-flex items-center gap-2" style="transition:color 0.3s ease;">${item.linkText||"Ver mais"}<svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1 11L11 1M11 1H4M11 1V8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></a>` : "";
+            card.innerHTML = `${mHtml}<div style="padding:22px 24px;"><h3 class="font-serif text-xl font-light mb-2">${item.title}</h3><p class="font-sans font-light text-sm leading-relaxed" style="color:var(--color-muted);">${item.description}</p>${lHtml}</div>`;
+            grid.appendChild(card);
+          });
+        }
+        renderDecoSlot(document.getElementById("gifts-deco-slot"), g.deco);
+      })();
+
+      // RSVP
+      (function() {
+        const r = CONFIG.rsvp;
+        setText("rsvp-eyebrow", r.eyebrow); setText("rsvp-headline", r.headline);
+        setText("rsvp-body", r.body); setText("rsvp-deadline", r.deadline);
+        const btn = document.getElementById("rsvp-btn");
+        if (r.btnType === "whatsapp" && r.whatsappNumber) {
+          const msg = encodeURIComponent(r.whatsappMsg || "Confirmo minha presença!");
+          btn.href = `https://wa.me/${r.whatsappNumber}?text=${msg}`; btn.target = "_blank"; btn.rel = "noopener noreferrer";
+          btn.innerHTML = `<svg width="17" height="17" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.524 3.655 1.435 5.163L2 22l4.97-1.418A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm4.938 13.635c-.202.567-1.18 1.114-1.63 1.148-.414.031-.8.194-2.697-.563-2.28-.9-3.73-3.23-3.842-3.38-.112-.15-.914-1.214-.914-2.316 0-1.103.577-1.648.782-1.875.202-.225.44-.281.586-.281h.418c.134 0 .316-.051.496.378.18.432.608 1.49.66 1.598.051.108.086.234.017.376-.07.143-.104.232-.203.356-.1.124-.21.277-.3.372-.1.095-.203.198-.087.388.116.19.517.853 1.11 1.38.763.68 1.408.89 1.608.99.2.1.315.083.432-.05.116-.133.497-.579.63-.778.133-.199.265-.166.447-.1.182.066 1.157.546 1.356.646.2.1.331.15.38.232.049.083.049.478-.153 1.045z"/></svg><span>${r.btnText}</span>`;
+        } else if (r.btnType === "url" && r.formUrl) {
+          btn.href = r.formUrl; btn.target = "_blank"; btn.rel = "noopener noreferrer";
+          btn.innerHTML = `<span>${r.btnText}</span>`;
+        } else { btn.href = "#"; btn.innerHTML = `<span>${r.btnText}</span>`; }
+        renderDecoSlot(document.getElementById("rsvp-deco-slot"), r.deco);
+      })();
+
+      // CLOSING
+      (function() {
+        const c = CONFIG.closing;
+        setText("closing-eyebrow", c.eyebrow); setText("closing-headline", c.headline);
+        setText("closing-body", c.body); setText("closing-signature", c.signature);
+        const bg = document.getElementById("closing-media-bg"); bg.innerHTML = "";
+        if (c.mediaType !== "none" && c.mediaType && c.mediaUrl) {
+          bg.innerHTML = `<img src="${c.mediaUrl}" alt="${c.mediaAlt||""}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.15;"/>`;
+        }
+        renderDecoSlot(document.getElementById("closing-deco-slot"), c.deco);
+      })();
+
+      // Re-bind reveal observer after re-render
+      document.querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-scale").forEach(el => {
+        el.classList.remove("revealed");
+        revealObs.observe(el);
+      });
+    }
+
+    /* ============================================================ INTERSECTION OBSERVER ============================================================ */
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("revealed"); revealObs.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: "0px 0px -36px 0px" });
+
+    /* ============================================================ PARALLAX ============================================================ */
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (!ticking && window.innerWidth > 768) {
+        requestAnimationFrame(() => {
+          const sy = window.scrollY;
+          const hvb = document.getElementById("hero-video-bg");
+          if (hvb) hvb.style.transform = `translateY(${sy * 0.22}px) scale(1.06)`;
+          const ageEl = document.querySelector(".text-age-number");
+          if (ageEl) { const sect = document.getElementById("age-section"); if (sect) { const rect = sect.getBoundingClientRect(); ageEl.style.transform = `translateY(${-rect.top * 0.1}px)`; } }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    /* ============================================================ OPEN INVITE ============================================================ */
+    function revealHeroContent() {
+      document.querySelectorAll("#hero .reveal").forEach((el, i) => { setTimeout(() => el.classList.add("revealed"), 300 + i * 220); });
+      const hint = document.getElementById("hero-scroll-hint");
+      if (hint) setTimeout(() => { hint.style.opacity = "0.55"; hint.style.display = "block"; }, 1200);
+    }
+    window.openInvite = function() {
+      const heroSec = document.getElementById("hero"); if (!heroSec) return;
+      const cover = document.getElementById("cover-screen");
+      cover.style.transition = "opacity 0.9s ease"; cover.style.opacity = "0"; cover.style.pointerEvents = "none";
+      setTimeout(() => { heroSec.scrollIntoView({ behavior: "smooth", block: "start" }); setTimeout(revealHeroContent, 600); }, 350);
+    };
+
+    /* ============================================================ ADMIN SYSTEM ============================================================ */
+    let adminAuthenticated = false;
+
+    window.openAdmin = function() {
+      document.getElementById("admin-overlay").classList.add("open");
+      if (!adminAuthenticated) {
+        document.getElementById("admin-login").classList.remove("hidden");
+        document.getElementById("admin-panel").classList.add("hidden");
+        setTimeout(() => document.getElementById("admin-pwd-input").focus(), 200);
+      } else {
+        showAdminPanel();
+      }
+    };
+
+    window.closeAdmin = function() {
+      document.getElementById("admin-overlay").classList.remove("open");
+    };
+
+    window.adminLogin = function() {
+      const pwd = document.getElementById("admin-pwd-input").value;
+      const correctPwd = CONFIG.meta.adminPassword || "convite2025";
+      if (pwd === correctPwd) {
+        adminAuthenticated = true;
+        document.getElementById("admin-login-error").textContent = "";
+        document.getElementById("admin-pwd-input").value = "";
+        showAdminPanel();
+      } else {
+        document.getElementById("admin-login-error").textContent = "Senha incorreta. Tente novamente.";
+        document.getElementById("admin-pwd-input").select();
+      }
+    };
+
+    window.adminLogout = function() {
+      adminAuthenticated = false;
+      document.getElementById("admin-login").classList.remove("hidden");
+      document.getElementById("admin-panel").classList.add("hidden");
+      document.getElementById("admin-pwd-input").value = "";
+    };
+
+    window.adminPreview = function() {
+      closeAdmin();
+    };
+
+    function showAdminPanel() {
+      document.getElementById("admin-login").classList.add("hidden");
+      document.getElementById("admin-panel").classList.remove("hidden");
+      populateAdminForm();
+    }
+
+    /* ============================================================ TABS ============================================================ */
+    document.querySelectorAll(".admin-tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".admin-tab").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".admin-section").forEach(s => s.classList.remove("active"));
+        tab.classList.add("active");
+        document.getElementById(`tab-${tab.dataset.tab}`).classList.add("active");
+      });
+    });
+
+    /* ============================================================ RADIO TOGGLES ============================================================ */
+    function bindRadioToggle(name, fieldMap) {
+      document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+        radio.addEventListener("change", () => {
+          Object.keys(fieldMap).forEach(val => {
+            const el = document.getElementById(fieldMap[val]);
+            if (el) el.style.display = (radio.value === val) ? "block" : "none";
+          });
+        });
+      });
+    }
+    bindRadioToggle("cover_mediaType",    { video_url:"cover_videoUrl_field", image_url:"cover_imageUrl_field", embed_html:"cover_embedHtml_field" });
+    bindRadioToggle("hero_mediaType",     { video_url:"hero_videoUrl_field",  image_url:"hero_imageUrl_field",  embed_html:"hero_embedHtml_field" });
+    bindRadioToggle("welcome_mediaType",  { embed:"welcome_embedHtml_field" });
+    bindRadioToggle("rsvp_btnType",       { whatsapp:"rsvp_whatsapp_fields", url:"rsvp_url_field" });
+
+    // Color sync
+    function bindColorSync(colorId, hexId) {
+      const colorEl = document.getElementById(colorId);
+      const hexEl   = document.getElementById(hexId);
+      if (!colorEl || !hexEl) return;
+      colorEl.addEventListener("input", () => { hexEl.value = colorEl.value; });
+      hexEl.addEventListener("input", () => { if (/^#[0-9a-fA-F]{6}$/.test(hexEl.value)) colorEl.value = hexEl.value; });
+    }
+    bindColorSync("appearance_accentColor","appearance_accentColorHex");
+    bindColorSync("appearance_bgColor","appearance_bgColorHex");
+    bindColorSync("appearance_darkColor","appearance_darkColorHex");
+    bindColorSync("appearance_bgWarm","appearance_bgWarmHex");
+
+    /* ============================================================ POPULATE FORM ============================================================ */
+    function setRadio(name, value) {
+      const radio = document.querySelector(`input[name="${name}"][value="${value}"]`);
+      if (radio) { radio.checked = true; radio.dispatchEvent(new Event("change")); }
+    }
+    function setVal(id, val) { const el = document.getElementById(id); if (el) el.value = val || ""; }
+
+    function populateAdminForm() {
+      const C = CONFIG;
+
+      // Meta
+      setVal("meta_pageTitle", C.meta.pageTitle);
+
+      // Cover
+      setRadio("cover_mediaType", C.cover.mediaType);
+      setVal("cover_videoUrl", C.cover.videoUrl); setVal("cover_imageUrl", C.cover.imageUrl);
+      setVal("cover_embedHtml", C.cover.embedHtml); setVal("cover_eyebrow", C.cover.eyebrow);
+      setVal("cover_buttonText", C.cover.buttonText);
+
+      // Hero
+      setRadio("hero_mediaType", C.hero.mediaType);
+      setVal("hero_videoUrl", C.hero.videoUrl); setVal("hero_imageUrl", C.hero.imageUrl);
+      setVal("hero_embedHtml", C.hero.embedHtml); setVal("hero_eyebrow", C.hero.eyebrow);
+      setVal("hero_titleLine1", C.hero.titleLine1); setVal("hero_titleLine2", C.hero.titleLine2);
+
+      // Welcome
+      setVal("welcome_eyebrow", C.welcome.eyebrow); setVal("welcome_headline", C.welcome.headline);
+      setVal("welcome_body", C.welcome.body);
+      setRadio("welcome_mediaType", C.welcome.mediaType);
+      setVal("welcome_mediaUrl", C.welcome.mediaUrl); setVal("welcome_mediaAlt", C.welcome.mediaAlt);
+      setVal("welcome_embedHtml", C.welcome.embedHtml || "");
+
+      // Child
+      setVal("child_name", C.child.name); setVal("child_age", C.child.age);
+      setVal("child_ageLabel", C.child.ageLabel); setVal("child_tagline", C.child.tagline);
+
+      // Event
+      setVal("event_date", C.event.date); setVal("event_time", C.event.time);
+
+      // Location
+      setVal("location_name", C.location.name); setVal("location_address", C.location.address);
+      setVal("location_mapsUrl", C.location.mapsUrl);
+      setRadio("location_venueMediaType", C.location.venueMediaType);
+      setVal("location_venueMediaUrl", C.location.venueMediaUrl); setVal("location_venueMediaAlt", C.location.venueMediaAlt);
+
+      // Gifts
+      setVal("gifts_eyebrow", C.gifts.eyebrow); setVal("gifts_headline", C.gifts.headline);
+      setVal("gifts_body", C.gifts.body); setVal("gifts_listUrl", C.gifts.listUrl);
+      setVal("gifts_listBtnText", C.gifts.listBtnText);
+      renderGiftItemsEditor(C.gifts.items || []);
+
+      // RSVP
+      setVal("rsvp_eyebrow", C.rsvp.eyebrow); setVal("rsvp_headline", C.rsvp.headline);
+      setVal("rsvp_body", C.rsvp.body); setVal("rsvp_deadline", C.rsvp.deadline);
+      setRadio("rsvp_btnType", C.rsvp.btnType);
+      setVal("rsvp_whatsappNumber", C.rsvp.whatsappNumber); setVal("rsvp_whatsappMsg", C.rsvp.whatsappMsg);
+      setVal("rsvp_formUrl", C.rsvp.formUrl); setVal("rsvp_btnText", C.rsvp.btnText);
+
+      // Closing
+      setVal("closing_eyebrow", C.closing.eyebrow); setVal("closing_headline", C.closing.headline);
+      setVal("closing_body", C.closing.body); setVal("closing_signature", C.closing.signature);
+      setRadio("closing_mediaType", C.closing.mediaType || "image");
+      setVal("closing_mediaUrl", C.closing.mediaUrl); setVal("closing_mediaAlt", C.closing.mediaAlt);
+
+      // Appearance
+      const app = C.appearance;
+      const setColor = (colorId, hexId, val) => { setVal(hexId, val); const el = document.getElementById(colorId); if (el) el.value = val; };
+      setColor("appearance_accentColor","appearance_accentColorHex", app.accentColor||"#C9A96E");
+      setColor("appearance_bgColor","appearance_bgColorHex", app.bgColor||"#FAF8F4");
+      setColor("appearance_darkColor","appearance_darkColorHex", app.darkColor||"#2D2926");
+      setColor("appearance_bgWarm","appearance_bgWarmHex", app.bgWarm||"#F2EDE6");
+      setVal("appearance_fontSerif",  app.fontSerif  || "Cormorant Garamond");
+      setVal("appearance_fontSans",   app.fontSans   || "Jost");
+      setVal("appearance_fontScript", app.fontScript || "Pinyon Script");
+    }
+
+    /* ============================================================ GIFT ITEMS EDITOR ============================================================ */
+    function renderGiftItemsEditor(items) {
+      const container = document.getElementById("gifts-items-editor");
+      container.innerHTML = "";
+      items.forEach((item, idx) => {
+        container.appendChild(createGiftItemEl(item, idx));
+      });
+    }
+
+    function createGiftItemEl(item, idx) {
+      const div = document.createElement("div");
+      div.className = "admin-gift-item";
+      div.dataset.idx = idx;
+      div.innerHTML = `
+        <p class="admin-gift-item-title">Item #${idx+1}</p>
+        <button class="btn-remove-gift" onclick="removeGiftItem(${idx})">Remover</button>
+        <div class="admin-row">
+          <div class="admin-field"><label class="admin-label">Título</label><input type="text" class="admin-input gift-title" value="${escHtml(item.title||'')}" placeholder="Título do presente"/></div>
+          <div class="admin-field"><label class="admin-label">Tipo de mídia</label><select class="admin-select gift-mediaType"><option value="image" ${item.mediaType==='image'?'selected':''}>Imagem</option><option value="video" ${item.mediaType==='video'?'selected':''}>Vídeo</option><option value="embed" ${item.mediaType==='embed'?'selected':''}>Embed</option></select></div>
+        </div>
+        <div class="admin-field"><label class="admin-label">Descrição</label><textarea class="admin-textarea gift-description" style="min-height:64px;">${escHtml(item.description||'')}</textarea></div>
+        <div class="admin-row">
+          <div class="admin-field"><label class="admin-label">URL da mídia</label><input type="url" class="admin-input gift-mediaUrl" value="${escHtml(item.mediaUrl||'')}" placeholder="https://..."/></div>
+          <div class="admin-field"><label class="admin-label">Alt da imagem</label><input type="text" class="admin-input gift-mediaAlt" value="${escHtml(item.mediaAlt||'')}" placeholder="Descrição da imagem"/></div>
+        </div>
+        <div class="admin-row">
+          <div class="admin-field"><label class="admin-label">Link do produto (opcional)</label><input type="url" class="admin-input gift-linkUrl" value="${escHtml(item.linkUrl||'')}" placeholder="https://..."/></div>
+          <div class="admin-field"><label class="admin-label">Texto do link</label><input type="text" class="admin-input gift-linkText" value="${escHtml(item.linkText||'')}" placeholder="Ver mais"/></div>
+        </div>`;
+      return div;
+    }
+
+    function escHtml(str) { return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    window.addGiftItem = function() {
+      const items = collectGiftItems();
+      items.push({ title: "", description: "", mediaType: "image", mediaUrl: "", mediaAlt: "", linkUrl: "", linkText: "" });
+      renderGiftItemsEditor(items);
+    };
+
+    window.removeGiftItem = function(idx) {
+      const items = collectGiftItems();
+      items.splice(idx, 1);
+      renderGiftItemsEditor(items);
+    };
+
+    function collectGiftItems() {
+      const items = [];
+      document.querySelectorAll(".admin-gift-item").forEach(el => {
+        items.push({
+          title:       el.querySelector(".gift-title")?.value       || "",
+          description: el.querySelector(".gift-description")?.value  || "",
+          mediaType:   el.querySelector(".gift-mediaType")?.value    || "image",
+          mediaUrl:    el.querySelector(".gift-mediaUrl")?.value     || "",
+          mediaAlt:    el.querySelector(".gift-mediaAlt")?.value     || "",
+          linkUrl:     el.querySelector(".gift-linkUrl")?.value      || "",
+          linkText:    el.querySelector(".gift-linkText")?.value     || "",
+        });
+      });
+      return items;
+    }
+
+    /* ============================================================ SAVE CONFIG ============================================================ */
+    window.saveConfig = function() {
+      const getVal = id => { const el = document.getElementById(id); return el ? el.value : ""; };
+      const getRadio = name => { const r = document.querySelector(`input[name="${name}"]:checked`); return r ? r.value : ""; };
+
+      // Password change
+      const newPwd = getVal("new_password"); const confirmPwd = getVal("confirm_password");
+      let pwdMsg = document.getElementById("pwd-change-msg");
+      if (newPwd || confirmPwd) {
+        if (newPwd !== confirmPwd) { pwdMsg.textContent = "As senhas não coincidem."; pwdMsg.style.color = "rgba(255,100,100,0.75)"; return; }
+        if (newPwd.length < 4)    { pwdMsg.textContent = "A senha deve ter pelo menos 4 caracteres."; pwdMsg.style.color = "rgba(255,100,100,0.75)"; return; }
+        CONFIG.meta.adminPassword = newPwd;
+        document.getElementById("new_password").value = ""; document.getElementById("confirm_password").value = "";
+        pwdMsg.textContent = "Senha alterada com sucesso."; pwdMsg.style.color = "rgba(201,169,110,0.8)";
+      }
+
+      // Build new config
+      CONFIG.meta.pageTitle = getVal("meta_pageTitle");
+
+      CONFIG.cover.mediaType  = getRadio("cover_mediaType");
+      CONFIG.cover.videoUrl   = getVal("cover_videoUrl");
+      CONFIG.cover.imageUrl   = getVal("cover_imageUrl");
+      CONFIG.cover.embedHtml  = getVal("cover_embedHtml");
+      CONFIG.cover.eyebrow    = getVal("cover_eyebrow");
+      CONFIG.cover.buttonText = getVal("cover_buttonText");
+
+      CONFIG.hero.mediaType  = getRadio("hero_mediaType");
+      CONFIG.hero.videoUrl   = getVal("hero_videoUrl");
+      CONFIG.hero.imageUrl   = getVal("hero_imageUrl");
+      CONFIG.hero.embedHtml  = getVal("hero_embedHtml");
+      CONFIG.hero.eyebrow    = getVal("hero_eyebrow");
+      CONFIG.hero.titleLine1 = getVal("hero_titleLine1");
+      CONFIG.hero.titleLine2 = getVal("hero_titleLine2");
+
+      CONFIG.welcome.eyebrow   = getVal("welcome_eyebrow");
+      CONFIG.welcome.headline  = getVal("welcome_headline");
+      CONFIG.welcome.body      = getVal("welcome_body");
+      CONFIG.welcome.mediaType = getRadio("welcome_mediaType") || "image";
+      CONFIG.welcome.mediaUrl  = getVal("welcome_mediaUrl");
+      CONFIG.welcome.mediaAlt  = getVal("welcome_mediaAlt");
+      CONFIG.welcome.embedHtml = getVal("welcome_embedHtml");
+
+      CONFIG.child.name     = getVal("child_name");
+      CONFIG.child.age      = getVal("child_age");
+      CONFIG.child.ageLabel = getVal("child_ageLabel");
+      CONFIG.child.tagline  = getVal("child_tagline");
+
+      CONFIG.event.date = getVal("event_date");
+      CONFIG.event.time = getVal("event_time");
+
+      CONFIG.location.name           = getVal("location_name");
+      CONFIG.location.address        = getVal("location_address");
+      CONFIG.location.mapsUrl        = getVal("location_mapsUrl");
+      CONFIG.location.venueMediaType = getRadio("location_venueMediaType") || "image";
+      CONFIG.location.venueMediaUrl  = getVal("location_venueMediaUrl");
+      CONFIG.location.venueMediaAlt  = getVal("location_venueMediaAlt");
+
+      CONFIG.gifts.eyebrow     = getVal("gifts_eyebrow");
+      CONFIG.gifts.headline    = getVal("gifts_headline");
+      CONFIG.gifts.body        = getVal("gifts_body");
+      CONFIG.gifts.listUrl     = getVal("gifts_listUrl");
+      CONFIG.gifts.listBtnText = getVal("gifts_listBtnText");
+      CONFIG.gifts.items       = collectGiftItems();
+
+      CONFIG.rsvp.eyebrow        = getVal("rsvp_eyebrow");
+      CONFIG.rsvp.headline       = getVal("rsvp_headline");
+      CONFIG.rsvp.body           = getVal("rsvp_body");
+      CONFIG.rsvp.deadline       = getVal("rsvp_deadline");
+      CONFIG.rsvp.btnType        = getRadio("rsvp_btnType") || "whatsapp";
+      CONFIG.rsvp.whatsappNumber = getVal("rsvp_whatsappNumber");
+      CONFIG.rsvp.whatsappMsg    = getVal("rsvp_whatsappMsg");
+      CONFIG.rsvp.formUrl        = getVal("rsvp_formUrl");
+      CONFIG.rsvp.btnText        = getVal("rsvp_btnText");
+
+      CONFIG.closing.eyebrow   = getVal("closing_eyebrow");
+      CONFIG.closing.headline  = getVal("closing_headline");
+      CONFIG.closing.body      = getVal("closing_body");
+      CONFIG.closing.signature = getVal("closing_signature");
+      CONFIG.closing.mediaType = getRadio("closing_mediaType") || "image";
+      CONFIG.closing.mediaUrl  = getVal("closing_mediaUrl");
+      CONFIG.closing.mediaAlt  = getVal("closing_mediaAlt");
+
+      CONFIG.appearance.accentColor  = getVal("appearance_accentColorHex") || getVal("appearance_accentColor");
+      CONFIG.appearance.bgColor      = getVal("appearance_bgColorHex")     || getVal("appearance_bgColor");
+      CONFIG.appearance.darkColor    = getVal("appearance_darkColorHex")   || getVal("appearance_darkColor");
+      CONFIG.appearance.bgWarm       = getVal("appearance_bgWarmHex")      || getVal("appearance_bgWarm");
+      CONFIG.appearance.fontSerif    = getVal("appearance_fontSerif");
+      CONFIG.appearance.fontSans     = getVal("appearance_fontSans");
+      CONFIG.appearance.fontScript   = getVal("appearance_fontScript");
+
+      // Persist
+      try { localStorage.setItem("invite_config", JSON.stringify(CONFIG)); } catch(e) { console.warn("localStorage indisponível"); }
+
+      // Re-render invite live
+      renderInvite();
+
+      // Feedback
+      const msg = document.getElementById("admin-save-msg");
+      msg.classList.add("visible");
+      setTimeout(() => msg.classList.remove("visible"), 2800);
+    };
+
+    /* ============================================================ RESET ============================================================ */
+    window.resetToDefaults = function() {
+      if (!confirm("Isso apagará todas as alterações e restaurará os dados padrão do template. Tem certeza?")) return;
+      localStorage.removeItem("invite_config");
+      CONFIG = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+      populateAdminForm();
+      renderInvite();
+      const msg = document.getElementById("admin-save-msg");
+      msg.textContent = "Dados restaurados"; msg.classList.add("visible");
+      setTimeout(() => { msg.textContent = "Salvo com sucesso"; msg.classList.remove("visible"); }, 2800);
+    };
+
+    /* ============================================================ INITIAL RENDER ============================================================ */
+    renderInvite();
+
+  }); // DOMContentLoaded
+  </script>
+
+
+
+</body></html>
